@@ -6,6 +6,7 @@ import { createLogger } from '../../utils/logger'
 import Axios from 'axios'
 import { Jwt } from '../../auth/Jwt'
 import { JwtPayload } from '../../auth/JwtPayload'
+import { getToken } from '../../auth/utils'
 
 const logger = createLogger('auth')
 
@@ -65,16 +66,4 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
     '-----BEGIN CERTIFICATE-----\n' + pemData  + '\n-----END CERTIFICATE-----'
 
   return verify(token, cert, { algorithms: [jwt.header.alg] }) as JwtPayload
-}
-
-function getToken(authHeader: string): string {
-  if (!authHeader) throw new Error('No authentication header')
-
-  if (!authHeader.toLowerCase().startsWith('bearer '))
-    throw new Error('Invalid authentication header')
-
-  const split = authHeader.split(' ')
-  const token = split[1]
-
-  return token
 }
