@@ -5,19 +5,18 @@ plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
-  # - serverless-dynamodb-local
-  # - serverless-offline
 
-# Read: https://github.com/dherault/serverless-offline
-# custom:
-#   serverless-offline:
-#     port: 3003
 
+package:
+  individually: true
 
 provider:
   name: aws
   runtime: nodejs12.x
 
+  tracing:
+    lambda: true
+    apiGateway: true
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 

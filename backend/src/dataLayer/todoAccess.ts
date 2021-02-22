@@ -73,24 +73,21 @@ export class TodoAccess {
   }
 
  
-  async deleteTodo(todoId: string, userId: string): Promise<string> {
-    logger.info(`Deleting a todo with ID ${todoId}`)
+  async deleteTodo(todoId:string, userId:string): Promise<string>{
+    console.log(`delete item ${todoId}`)
 
-    await this.docClient
-      .delete({
-        TableName: this.todosTable,
-        Key: {
-          userId,
-          todoId
-        },
-        ConditionExpression: 'todoId = :todoId',
-        ExpressionAttributeValues: { ':todoId': todoId   }
-      })
-      .promise()
-
+    await this.docClient.delete({
+      TableName: this.todosTable,
+      Key: {
+        userId: userId,
+        todoId: todoId
+      }
+    }).promise()
     return userId
+
   }
 
+  
   async generateUploadUrl(todoId: string): Promise<string> {
     logger.info('Generating upload Url')
 
