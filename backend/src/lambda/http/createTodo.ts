@@ -23,7 +23,7 @@ export const handler = middy(
       return {
         statusCode: 201,
         body: JSON.stringify({
-          newItem
+          item: newItem
         })
       }
     } catch (e) {
@@ -38,5 +38,7 @@ handler.use(
     credentials: true
   })
 )
+
+
 
 

@@ -17,6 +17,7 @@ const apiResponseHelper = new ApiResponseHelper()
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
+      logger.info(`In UpdateTodo`)
       const todoId: string = event.pathParameters.todoId
       const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
       const jwtToken: string = getToken(event.headers.Authorization)
